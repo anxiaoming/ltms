@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+    <style>
+        #div1{ width:600px; height:400px; margin:0 auto; }
+        #div1 div{ width:100px; height:100px; float:left; margin:10px 0 0 10px; background:url("img/se_1.gif");text-align:center; font:24px/100px "Arial Black", Gadget, sans-serif; color:white; position:relative; }
+        #div1 div img{ position:absolute; top:0; left:0; z-index:1}
+        #div1 div span{ z-index:99;}
+    </style>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+</head>
+<body>
+<div id="div1">
+
+</div>
+<input type="button" value="更多的色子" id="moreBut">
+<input type="button" value="摇色子"  id="btn">
+<input type="button" value="更少的色子" id="lessBut">
+<input type="button" value="stop" id="stop">
+<p><span id="oSpan"></span>色子</p>
+<p>总计<span id="oSpan2"></span></p>
+</body>
+</html>
+<script>
+    var div=document.getElementById('div1');
+    var moreBut=document.getElementById('moreBut');
+    var btn=document.getElementById('btn');
+    var lessBut=document.getElementById('lessBut');
+    var stop=document.getElementById('stop');
+    var oSpan=document.getElementById('oSpan');
+    var oSpan2=document.getElementById('oSpan2');
+    var ZjNum=0;
+    var timer=null;
+    moreBut.onclick=function () {
+        var adiv=document.createElement('div');
+        if(div.children.length==12) return;
+        var sjs=parseInt(Math.random()*6+1);
+        adiv.innerHTML='<img src="img/'+sjs+'.gif">';
+        div.appendChild(adiv);
+        oSpan.innerHTML=div.children.length;
+        ZjNum+=sjs;
+        adiv.setAttribute('r',sjs);
+        oSpan2.innerHTML=ZjNum;
+
+    };
+    lessBut.onclick=function () {
+        if(div.children.length==0)return;
+        var divLeg=div.children[div.children.length-1];
+        var zjSjs= Number(divLeg.getAttribute('r'))
+        div.removeChild(divLeg);
+        oSpan.innerHTML=div.children.length;
+        ZjNum-=zjSjs;
+        oSpan2.innerHTML=ZjNum
+    };
+    btn.onclick=function () {
+        clearInterval(timer);
+        timer=setInterval(function () {
+            ZjNum=0;
+            for(var i=0;i<div.children.length;i++){
+                var sjs1=parseInt(Math.random()*6+1);
+                div.children[i].setAttribute('r',sjs1);
+                div.children[i].children[0].src='img/'+sjs1+'.gif';
+                ZjNum+=sjs1;
+            }
+            oSpan2.innerHTML=ZjNum
+        },30)
+    };
+    stop.onclick = function(){
+        clearInterval(timer);
+    };
+</script>

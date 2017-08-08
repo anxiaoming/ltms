@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>标题</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<style>
+		*{margin: 0; padding: 0;}
+		#top_box{width: 200px; height: 200px; margin: 0 auto 0; position: relative;}
+		#bottom_box{width: 200px; height: 200px; margin: 200px auto 0; position: relative;}
+	</style>
+</head>
+<body>
+	<div id="top_box"></div>
+	<div id="bottom_box"></div>
+	<script>
+		var topBox=document.getElementById('top_box');
+		var bottomBox=document.getElementById('bottom_box');
+		var arrT=[]
+		var arrB=[]
+		var timer=null
+		for (var i = 0; i < 10; i++) {
+			for (var j = 0; j < 10; j++) {
+				var oDiv=document.createElement('div');
+				oDiv.style.position='absolute'
+				oDiv.style.top=i*20+'px'
+				oDiv.style.left=j*20+'px'
+				oDiv.style.width=topBox.offsetWidth/10+'px'
+				oDiv.style.height=topBox.offsetHeight/10+'px'
+				oDiv.style.background='url(img/2.jpeg)'
+				oDiv.style.backgroundSize='200px 200px'
+				oDiv.style.backgroundPositionX=-j*20+'px'
+				oDiv.style.backgroundPositionY=-i*20+'px'
+				oDiv.style.transition=random(0.7,1)+'s'
+				topBox.appendChild(oDiv)
+				arrT.push(oDiv);
+			};
+		};
+		topBox.onclick=function (){
+			if (this.innerHTML!='') {
+				if (arrT.length==0) {
+					return
+				};
+				clearInterval(timer)
+				timer=setInterval(function (){
+					topBox.children[arrT.length-1].style.top=topBox.children[arrT.length-1].offsetTop+400+'px'
+					topBox.children[arrT.length-1].style.backgroundImage='url(img/1.jpeg)'
+					arrT.pop()
+					if (arrT.length==0) {
+						clearInterval(timer)
+						setTimeout(function (){
+							topBox.innerHTML=''
+							for (var i = 0; i < 10; i++) {
+								for (var j = 0; j < 10; j++) {
+									var oDiv=document.createElement('div');
+									oDiv.style.position='absolute'
+									oDiv.style.top=i*20+'px'
+									oDiv.style.left=j*20+'px'
+									oDiv.style.width=bottomBox.offsetWidth/10+'px'
+									oDiv.style.height=bottomBox.offsetHeight/10+'px'
+									oDiv.style.background='url(img/1.jpeg)'
+									oDiv.style.backgroundSize='200px 200px'
+									oDiv.style.backgroundPositionX=-j*20+'px'
+									oDiv.style.backgroundPositionY=-i*20+'px'
+									oDiv.style.transition=random(0.7,1)+'s'
+									bottomBox.appendChild(oDiv)
+									arrB.push(oDiv);
+								};
+							};
+						},800)
+					};
+				},30)
+			};
+		}
+		bottomBox.onclick=function (){
+			if (this.innerHTML!='') {
+				if (arrB.length==0) {
+					return
+				};
+				clearInterval(timer)
+				timer=setInterval(function (){
+					bottomBox.children[100-arrB.length].style.top=
+						bottomBox.children[100-arrB.length].offsetTop-400+'px'
+					bottomBox.children[100-arrB.length].style.backgroundImage=
+                        'url(img/2.jpeg)'
+					arrB.shift()
+					if (arrB.length==0) {
+						clearInterval(timer)
+						setTimeout(function (){
+							bottomBox.innerHTML=''
+							for (var i = 0; i < 10; i++) {
+								for (var j = 0; j < 10; j++) {
+									var oDiv=document.createElement('div');
+									var oDiv=document.createElement('div');
+									oDiv.style.position='absolute'
+									oDiv.style.top=i*20+'px'
+									oDiv.style.left=j*20+'px'
+									oDiv.style.width=topBox.offsetWidth/10+'px'
+									oDiv.style.height=topBox.offsetHeight/10+'px'
+									oDiv.style.background='url(images/3.jpg)'
+									oDiv.style.backgroundSize='200px 200px'
+									oDiv.style.backgroundPositionX=-j*20+'px'
+									oDiv.style.backgroundPositionY=-i*20+'px'
+									oDiv.style.transition=random(0.7,1)+'s'
+									topBox.appendChild(oDiv)
+									arrT.push(oDiv);
+								};
+							};
+						},800)
+					};
+				},30)
+			};
+		}
+		function random(min,max){
+			return Math.random()*(max-min)+min;
+		};
+	</script>
+</body>
+</html>
